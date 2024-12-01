@@ -8,15 +8,25 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @StateObject var vm = HomeViewModel()
+    @State var results = [PokemonList.Result]()
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        List {
+            ForEach(results, id: \.name) { pokemon in
+                Text(pokemon.name)
+            }
         }
         .padding()
+        .onAppear {
+            Task {
+                let pokemonList = try await vm.getPokemonList()
+                results = pokemonList.results
+            }
+        }
     }
+        
 }
 
 #Preview {
