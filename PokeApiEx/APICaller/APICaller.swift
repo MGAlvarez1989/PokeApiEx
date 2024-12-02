@@ -13,21 +13,29 @@ class APICaller {
     
     static let shared = APICaller()
     
-    func callService<T: Decodable>(requestModel: RequestModel, _ modelType: T.Type) async throws -> T {
-        let request = buildRequest(requestModel)
-        
+    func callService<T: Decodable>(_ url: URL?, _ modelType: T.Type) async throws -> T {
         do {
-            let (data, response) = try await URLSession.shared.data(for: request)
+            guard let url else {fatalError("URL Error")}
+            let (data, response) = try await URLSession.shared.data(from: url)
             guard let httpResponse = response as? HTTPURLResponse else {
                 fatalError("HTTP Response Error")
             }
-            let decodedData = try JSONDecoder().decode(T.self, from: data)
 //            print(try JSONSerialization.jsonObject(with: data))
+            let decodedData = try JSONDecoder().decode(T.self, from: data)
             return decodedData
         } catch {
             print("Call Service Error: \(error)")
             throw error
         }
+    }
+    
+    func downloadImage(_ url: URL?) async throws -> Data {
+        guard let url else {fatalError("URL Error")}
+        let (data, response) = try await URLSession.shared.data(from: url)
+        guard let httpResponse = response as? HTTPURLResponse else {
+            fatalError("HTTP Response Error")
+        }
+        return data
     }
     
     func buildRequest(_ requestModel: RequestModel) -> URLRequest {
