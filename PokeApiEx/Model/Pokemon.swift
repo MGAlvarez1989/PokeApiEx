@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Pokemon: Codable {
+struct Pokemon: Codable, Identifiable {
     let id: Int
     let name: String
     let height: Int
@@ -27,14 +27,14 @@ struct Pokemon: Codable {
         struct Other: Codable {
             let officialArtwork: OfficialArtwork
             
-            enum CodingsKeys: String, CodingKey {
+            enum CodingKeys: String, CodingKey {
                 case officialArtwork = "official-artwork"
             }
             
             struct OfficialArtwork: Codable {
                 let frontDefault: String
                 
-                enum CodingsKeys: String, CodingKey {
+                enum CodingKeys: String, CodingKey {
                     case frontDefault = "front_default"
                 }
             }
