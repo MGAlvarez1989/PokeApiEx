@@ -13,7 +13,7 @@ struct EvolutionChain: Codable {
     
     struct Chain: Codable {
         let species: SpeciesReference
-        let evolvesTo: [EvolutionChain]
+        let evolvesTo: [EvolvesTo]
         
         enum CodingKeys: String, CodingKey {
             case species
@@ -23,6 +23,16 @@ struct EvolutionChain: Codable {
         struct SpeciesReference: Codable {
             let name: String
             let url: String
+        }
+        
+        struct EvolvesTo: Codable {
+            let species: SpeciesReference
+            let evolvesTo: [EvolvesTo]
+            
+            enum CodingKeys: String, CodingKey {
+                case species
+                case evolvesTo = "evolves_to"
+            }
         }
     }
 }

@@ -14,7 +14,7 @@ struct Species: Codable {
     let evolvesFromSpecies: EvolvesFromSpecies?
     let generation: Generation
     
-    enum CodingsKeys: String, CodingKey {
+    enum CodingKeys: String, CodingKey {
         case id
         case name
         case evolutionChain = "evolution_chain"
