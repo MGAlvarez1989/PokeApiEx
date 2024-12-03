@@ -7,7 +7,8 @@
 
 import Foundation
 
-struct Pokemon: Codable, Identifiable {
+struct Pokemon: Codable, Identifiable, Hashable {
+    
     let id: Int
     let name: String
     let height: Int
@@ -16,22 +17,27 @@ struct Pokemon: Codable, Identifiable {
     let sprites: Sprites
     let types: [TypeElement]
     
-    struct Species: Codable {
+    struct Species: Codable, Hashable {
         let name: String
         let url: String
     }
     
-    struct Sprites: Codable {
+    struct Sprites: Codable, Hashable {
+        
         let other: Other
         
-        struct Other: Codable {
+        struct Other: Codable, Hashable {
+            static func == (lhs: Pokemon.Sprites.Other, rhs: Pokemon.Sprites.Other) -> Bool {
+                lhs.officialArtwork.frontDefault == rhs.officialArtwork.frontDefault
+            }
+            
             let officialArtwork: OfficialArtwork
             
             enum CodingKeys: String, CodingKey {
                 case officialArtwork = "official-artwork"
             }
             
-            struct OfficialArtwork: Codable {
+            struct OfficialArtwork: Codable, Hashable {
                 let frontDefault: String
                 
                 enum CodingKeys: String, CodingKey {
@@ -41,11 +47,11 @@ struct Pokemon: Codable, Identifiable {
         }
     }
     
-    struct TypeElement: Codable {
+    struct TypeElement: Codable, Hashable {
         let slot: Int
         let type: TypeSpecies
         
-        struct TypeSpecies: Codable {
+        struct TypeSpecies: Codable, Hashable {
             let name: String
             let url: String
         }

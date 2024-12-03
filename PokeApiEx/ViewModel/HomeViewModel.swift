@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct HomePokemon: Identifiable, Equatable {
+struct HomePokemon: Identifiable, Equatable, Hashable {
     static func == (lhs: HomePokemon, rhs: HomePokemon) -> Bool {
         return lhs.id == rhs.id
     }
@@ -40,8 +40,6 @@ class HomeViewModel: ObservableObject {
             guard let next = list?.next else { return }
             url = URL(string: next)
         }
-        print("StringURL: \(url?.absoluteString)")
-        
         do {
             list = try await APICaller.shared.callService(url, PokemonList.self)
             if let list {

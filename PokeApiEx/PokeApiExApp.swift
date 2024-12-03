@@ -11,7 +11,7 @@ import SwiftUI
 struct PokeApiExApp: App {
     var body: some Scene {
         WindowGroup {
-            HomeView()
+            CoordinatorView()
         }
     }
 }

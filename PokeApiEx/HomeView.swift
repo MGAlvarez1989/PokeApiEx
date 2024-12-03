@@ -9,6 +9,7 @@ import SwiftUI
 
 struct HomeView: View {
     
+    @EnvironmentObject private var coordinator: Coordinator
     @StateObject var vm = HomeViewModel()
     
     
@@ -31,6 +32,10 @@ struct HomeView: View {
                                 try await vm.getList()
                             }
                         }
+                    }
+                    .onTapGesture {
+                        print(pokemon.pokemon.name)
+                        coordinator.push(.details(pokemon: pokemon))
                     }
                 }
                 if vm.isLoading {
