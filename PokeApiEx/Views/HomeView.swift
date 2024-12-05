@@ -23,7 +23,7 @@ struct HomeView: View {
                         Image(uiImage: pokemon.uiImage)
                             .resizable()
                             .scaledToFit()
-                        Text(pokemon.pokemon.name.uppercased())
+                        Text("#\(pokemon.pokemon.id) - \(pokemon.pokemon.name.uppercased())")
                             .font(.largeTitle)
                     }
                     .onAppear {

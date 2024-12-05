@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct HomePokemon: Identifiable, Equatable, Hashable {
+struct HomePokemon: Identifiable, Equatable, Hashable{
     static func == (lhs: HomePokemon, rhs: HomePokemon) -> Bool {
         return lhs.id == rhs.id
     }

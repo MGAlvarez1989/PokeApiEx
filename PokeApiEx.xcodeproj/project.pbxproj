@@ -108,8 +108,7 @@
 				FACE7B5E2CFC4A5C005D1A40 /* APICaller */,
 				FACE7B4B2CFC4989005D1A40 /* Model */,
 				FACE7B5B2CFC49F4005D1A40 /* ViewModel */,
-				FACE7B4F2CFC4989005D1A40 /* HomeView.swift */,
-				FA90DF192CFE2A7600847247 /* DetailView.swift */,
+				FAE82BA22D01B2680071AB94 /* Views */,
 				FACE7B502CFC4989005D1A40 /* PokeApiExApp.swift */,
 				FACE7B4E2CFC4989005D1A40 /* Assets.xcassets */,
 				FACE7B4D2CFC4989005D1A40 /* Preview Content */,
@@ -133,6 +132,15 @@
 				FACE7B5F2CFC4A96005D1A40 /* APICaller.swift */,
 			);
 			path = APICaller;
+			sourceTree = "<group>";
+		};
+		FAE82BA22D01B2680071AB94 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				FACE7B4F2CFC4989005D1A40 /* HomeView.swift */,
+				FA90DF192CFE2A7600847247 /* DetailView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
