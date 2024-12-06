@@ -10,7 +10,7 @@ import SwiftUI
 struct DetailPokemon {
     var species: Species
     var evolutionChain: EvolutionChain
-    var evolutions: [HomePokemon]
+    var evolutions: [HomePokemon]?
 }
 
 class DetailViewModel: ObservableObject {
@@ -27,8 +27,12 @@ class DetailViewModel: ObservableObject {
     func getDetails() async throws {
         let species = try await getSpecies()
         let evolutionChain = try await getEvolutionChain(from: species)
-        let pokemonsEvolutions = try await getEvolutionsPokemons(from: evolutionChain)
-        detail = DetailPokemon(species: species, evolutionChain: evolutionChain, evolutions: pokemonsEvolutions)
+        if evolutionChain.chain.evolvesTo.isEmpty {
+            detail = DetailPokemon(species: species, evolutionChain: evolutionChain)
+        } else {
+            let pokemonsEvolutions = try await getEvolutionsPokemons(from: evolutionChain)
+            detail = DetailPokemon(species: species, evolutionChain: evolutionChain, evolutions: pokemonsEvolutions)
+        }
     }
     
     private func getSpecies() async throws -> Species {
@@ -47,7 +51,6 @@ class DetailViewModel: ObservableObject {
         
         var evolutions: [String] = []
         evolutions.append(contentsOf: getAllEvolutions(from: chain.chain))
-        print(evolutions)
         return evolutions
         
         func getAllEvolutions(from chain: EvolutionChain.Chain) -> [String] {
