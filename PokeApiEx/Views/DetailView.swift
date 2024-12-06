@@ -49,7 +49,7 @@ struct DetailView: View {
         }
     }
     
-    private func pokemonEvolutions (evolutions: [HomePokemon]) -> some View {
+    private func pokemonEvolutions (evolutions: [APPPokemon]) -> some View {
         VStack {
             Text("Evolutions:")
             let colums = Array(repeating: GridItem(.flexible(maximum: 300), spacing: 0),count: 3)

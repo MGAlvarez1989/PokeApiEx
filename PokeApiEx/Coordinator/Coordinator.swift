@@ -9,7 +9,7 @@ import SwiftUI
 
 enum Page: Identifiable, Hashable {
     case home
-    case details(pokemon: HomePokemon)
+    case details(pokemon: APPPokemon)
     
     var id: Self {
         return self
