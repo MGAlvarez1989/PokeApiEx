@@ -34,8 +34,7 @@ class HomeViewModel: ObservableObject {
         var url: URL?
         
         if list == nil {
-            let requestModel = RequestModel(endPoint: .pokemonList)
-            url = URL(string: requestModel.getURL())
+            url = URL(string: "https://pokeapi.co/api/v2/pokemon")
         } else {
             guard let next = list?.next else { return }
             url = URL(string: next)

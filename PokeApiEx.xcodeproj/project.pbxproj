@@ -22,7 +22,6 @@
 		FACE7B592CFC4989005D1A40 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FACE7B4E2CFC4989005D1A40 /* Assets.xcassets */; };
 		FACE7B5D2CFC4A0A005D1A40 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACE7B5C2CFC4A0A005D1A40 /* HomeViewModel.swift */; };
 		FACE7B602CFC4A96005D1A40 /* APICaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACE7B5F2CFC4A96005D1A40 /* APICaller.swift */; };
-		FACE7B622CFC4D68005D1A40 /* RequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACE7B612CFC4D68005D1A40 /* RequestModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,7 +41,6 @@
 		FACE7B502CFC4989005D1A40 /* PokeApiExApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokeApiExApp.swift; sourceTree = "<group>"; };
 		FACE7B5C2CFC4A0A005D1A40 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		FACE7B5F2CFC4A96005D1A40 /* APICaller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APICaller.swift; sourceTree = "<group>"; };
-		FACE7B612CFC4D68005D1A40 /* RequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,7 +126,6 @@
 		FACE7B5E2CFC4A5C005D1A40 /* APICaller */ = {
 			isa = PBXGroup;
 			children = (
-				FACE7B612CFC4D68005D1A40 /* RequestModel.swift */,
 				FACE7B5F2CFC4A96005D1A40 /* APICaller.swift */,
 			);
 			path = APICaller;
@@ -226,7 +223,6 @@
 				FACE7B552CFC4989005D1A40 /* Species.swift in Sources */,
 				FA90DF1C2CFE2A9C00847247 /* CoordinatorView.swift in Sources */,
 				FAA050FC2CFEDFE10018773D /* DetailViewModel.swift in Sources */,
-				FACE7B622CFC4D68005D1A40 /* RequestModel.swift in Sources */,
 				FACE7B562CFC4989005D1A40 /* HomeView.swift in Sources */,
 				FACE7B572CFC4989005D1A40 /* PokeApiExApp.swift in Sources */,
 				FACE7B602CFC4A96005D1A40 /* APICaller.swift in Sources */,

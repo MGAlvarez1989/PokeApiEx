@@ -41,7 +41,7 @@ struct HomeView: View {
                 if vm.isLoading {
                     ProgressView()
                         .scaleEffect(3)
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .frame(minWidth: 300, minHeight: 300)
                         .padding()
                 }
             })

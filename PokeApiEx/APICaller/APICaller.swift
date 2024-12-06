@@ -38,15 +38,4 @@ class APICaller {
         return data
     }
     
-    func buildRequest(_ requestModel: RequestModel) -> URLRequest {
-        var serviceURL = URLComponents(string: requestModel.getURL())
-        serviceURL?.queryItems = requestModel.queryItems
-        
-        guard let componentURL = serviceURL?.url else {fatalError("buildRequest error")}
-        
-        var request = URLRequest(url: componentURL)
-        request.httpMethod = requestModel.httpMethod
-        return request
-    }
-    
 }
