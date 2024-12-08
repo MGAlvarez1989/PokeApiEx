@@ -68,6 +68,8 @@ struct HomeView: View {
 
 #Preview {
     let pokemonManager = PokemonManager()
+    let coordinator = Coordinator()
     HomeView(vm: HomeViewModel(pokemonManager: pokemonManager))
         .environmentObject(pokemonManager)
+        .environmentObject(coordinator)
 }
