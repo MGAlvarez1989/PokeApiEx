@@ -10,6 +10,7 @@ import SwiftUI
 struct DetailView: View {
     
     @EnvironmentObject private var coordinator: Coordinator
+    @EnvironmentObject var pokemonManager: PokemonManager
     @ObservedObject var vm: DetailViewModel
     
     var body: some View {
@@ -25,7 +26,11 @@ struct DetailView: View {
         .font(.title)
         .onAppear {
             Task {
-                try await vm.getDetails()
+                do {
+                    try await vm.getDetails()
+                } catch {
+                    throw error
+                }
             }
         }
         .frame(maxWidth: .infinity)
@@ -71,7 +76,9 @@ struct DetailView: View {
 
 #Preview {
     ZStack {
-        let pokemon = PokemonPreview().bulbasaur
-        DetailView(vm: DetailViewModel(pokemon: pokemon))
+        let pokemonManager = PokemonManager()
+        let pokemon = PokemonPreview().eevee
+        DetailView(vm: DetailViewModel(pokemonManager: pokemonManager, pokemon: pokemon))
+            .environmentObject(pokemonManager)
     }
 }

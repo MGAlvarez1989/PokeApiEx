@@ -7,13 +7,23 @@
 
 import SwiftUI
 
+enum HomeError: Error {
+    case noList
+    case getInfo
+    case getImage
+}
+
 class HomeViewModel: ObservableObject {
     
-    @Published var homePokemons: [APPPokemon] = []
+    private var pokemonManager: PokemonManager
+    
     @Published var isLoading = false
-    var list: APIPokemonList?
     var pokemon: APIPokemon?
     var pokemonImage: UIImage?
+    
+    init(pokemonManager: PokemonManager) {
+        self.pokemonManager = pokemonManager
+    }
     
     @MainActor
     func getList() async throws {
@@ -21,50 +31,47 @@ class HomeViewModel: ObservableObject {
         isLoading = true
         defer { isLoading = false }
         
-        var url: URL?
+        let url = try getURL()
+        pokemonManager.pokemonList = try await APICaller.shared.callService(url, APIPokemonList.self)
+        guard let list = pokemonManager.pokemonList else { throw HomeError.noList }
         
-        if list == nil {
-            url = URL(string: "https://pokeapi.co/api/v2/pokemon")
-        } else {
-            guard let next = list?.next else { return }
-            url = URL(string: next)
-        }
-        do {
-            list = try await APICaller.shared.callService(url, APIPokemonList.self)
-            if let list {
-                for pokemon in list.results {
-                    try await getInfo(stringURL: pokemon.url)
-                    if let pokemon = self.pokemon, let pokemonImage = self.pokemonImage {
-                        homePokemons.append(APPPokemon(pokemon: pokemon, uiImage: pokemonImage))
-                    }
-                }
+        for pokemon in list.results {
+            try await getInfo(stringURL: pokemon.url)
+            if let pokemon = self.pokemon, let pokemonImage = self.pokemonImage {
+                pokemonManager.appPokemonList.append(APPPokemon(pokemon: pokemon, uiImage: pokemonImage))
             }
-        } catch {
-            throw error
         }
     }
     
     private func getInfo(stringURL: String) async throws {
-        let url = URL(string: stringURL)
-        
         do {
+            let url = URL(string: stringURL)
             let model = try await APICaller.shared.callService(url, APIPokemon.self)
             try await getImage(stringURL: model.sprites.other.officialArtwork.frontDefault)
             pokemon = model
         } catch {
-            throw error
+            throw HomeError.getInfo
         }
     }
     
     private func getImage(stringURL: String) async throws {
-        let url = URL(string: stringURL)
         do {
+            let url = URL(string: stringURL)
             let data = try await APICaller.shared.downloadImage(url)
             if let image = UIImage(data: data) {
                 pokemonImage = image
             }
         } catch {
-            print("Error: \(error)")
+            throw HomeError.getImage
+        }
+    }
+    
+    private func getURL() throws -> URL?{
+        if pokemonManager.pokemonList == nil {
+            return URL(string: "https://pokeapi.co/api/v2/pokemon")
+        } else {
+            guard let next = pokemonManager.pokemonList?.next else { throw URLError(.badURL) }
+            return URL(string: next)
         }
     }
 }

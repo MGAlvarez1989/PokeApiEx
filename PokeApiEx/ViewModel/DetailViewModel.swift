@@ -6,14 +6,21 @@
 //
 
 import SwiftUI
+enum DetailError: Error {
+    case getSpecies
+    case getEvolutionChain
+    case fetchEvolution
+}
 
 class DetailViewModel: ObservableObject {
     
+    private var pokemonManager: PokemonManager
     @Published var pokemon: APPPokemon
     @Published var detail: APPDetailPokemon?
     @Published var isLoading: Bool = false
     
-    init(pokemon: APPPokemon) {
+    init(pokemonManager: PokemonManager, pokemon: APPPokemon) {
+        self.pokemonManager = pokemonManager
         self.pokemon = pokemon
     }
     
@@ -30,15 +37,23 @@ class DetailViewModel: ObservableObject {
     }
     
     private func getSpecies() async throws -> APISpecies {
-        let speciesURL = URL(string: pokemon.pokemon.species.url)
-        let species = try await APICaller.shared.callService(speciesURL, APISpecies.self)
-        return species
+        do {
+            let speciesURL = URL(string: pokemon.pokemon.species.url)
+            let species = try await APICaller.shared.callService(speciesURL, APISpecies.self)
+            return species
+        } catch {
+            throw DetailError.getSpecies
+        }
     }
     
     private func getEvolutionChain(from species: APISpecies) async throws -> APIEvolutionChain {
-        let evolutionChainURL = URL(string: species.evolutionChain.url)
-        let evolutionChain = try await APICaller.shared.callService(evolutionChainURL, APIEvolutionChain.self)
-        return evolutionChain
+        do {
+            let evolutionChainURL = URL(string: species.evolutionChain.url)
+            let evolutionChain = try await APICaller.shared.callService(evolutionChainURL, APIEvolutionChain.self)
+            return evolutionChain
+        } catch {
+            throw DetailError.getEvolutionChain
+        }
     }
     
     private func getStringEvolutions(from chain: APIEvolutionChain) -> [String] {
@@ -70,14 +85,26 @@ class DetailViewModel: ObservableObject {
         let allEvolutions = getStringEvolutions(from: evolutionChain)
         var pokemonsEvolution: [APPPokemon] = []
         for evolution in allEvolutions {
-            let url = URL(string: "https://pokeapi.co/api/v2/pokemon/\(evolution)")
-            let pokemon = try await APICaller.shared.callService(url, APIPokemon.self)
-            let imageURL = URL(string: pokemon.sprites.other.officialArtwork.frontDefault)
-            let dataImage = try await APICaller.shared.downloadImage(imageURL)
-            guard let image = UIImage(data: dataImage) else {continue}
-            let pokemonEvolution = APPPokemon(pokemon: pokemon, uiImage: image)
-            pokemonsEvolution.append(pokemonEvolution)
+            
+            if pokemonManager.appPokemonList.contains(where: { $0.pokemon.name == evolution }) {
+                let pokemon = pokemonManager.appPokemonList.first(where: { $0.pokemon.name == evolution })!
+                pokemonsEvolution.append(pokemon)
+            } else {
+                try await pokemonsEvolution.append(fetchEvolution(from: evolution))
+            }
         }
         return pokemonsEvolution
+    }
+    
+    private func fetchEvolution(from pokemon: String) async throws -> APPPokemon {
+        let url = URL(string: "https://pokeapi.co/api/v2/pokemon/\(pokemon)")
+        
+        let pokemon = try await APICaller.shared.callService(url, APIPokemon.self)
+        
+        let imageURL = URL(string: pokemon.sprites.other.officialArtwork.frontDefault)
+        let dataImage = try await APICaller.shared.downloadImage(imageURL)
+        guard let image = UIImage(data: dataImage) else {throw DetailError.fetchEvolution}
+        
+        return APPPokemon(pokemon: pokemon, uiImage: image)
     }
 }

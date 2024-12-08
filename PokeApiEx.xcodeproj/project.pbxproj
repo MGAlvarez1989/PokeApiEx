@@ -24,6 +24,7 @@
 		FACE7B602CFC4A96005D1A40 /* APICaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACE7B5F2CFC4A96005D1A40 /* APICaller.swift */; };
 		FAEB53322D02E8040019E222 /* APPPokemon.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEB53312D02E8040019E222 /* APPPokemon.swift */; };
 		FAEB53342D02E8310019E222 /* APPDetailPokemon.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEB53332D02E8310019E222 /* APPDetailPokemon.swift */; };
+		FAEB53372D02E91A0019E222 /* PokemonManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEB53362D02E91A0019E222 /* PokemonManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +46,7 @@
 		FACE7B5F2CFC4A96005D1A40 /* APICaller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APICaller.swift; sourceTree = "<group>"; };
 		FAEB53312D02E8040019E222 /* APPPokemon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APPPokemon.swift; sourceTree = "<group>"; };
 		FAEB53332D02E8310019E222 /* APPDetailPokemon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APPDetailPokemon.swift; sourceTree = "<group>"; };
+		FAEB53362D02E91A0019E222 /* PokemonManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +119,7 @@
 			children = (
 				FAA050FA2CFEDF670018773D /* Coordinator */,
 				FACE7B5E2CFC4A5C005D1A40 /* APICaller */,
+				FAEB53352D02E8F80019E222 /* PokemonManager */,
 				FACE7B4B2CFC4989005D1A40 /* Model */,
 				FACE7B5B2CFC49F4005D1A40 /* ViewModel */,
 				FAE82BA22D01B2680071AB94 /* Views */,
@@ -160,6 +163,14 @@
 				FAEB53332D02E8310019E222 /* APPDetailPokemon.swift */,
 			);
 			path = APPModels;
+			sourceTree = "<group>";
+		};
+		FAEB53352D02E8F80019E222 /* PokemonManager */ = {
+			isa = PBXGroup;
+			children = (
+				FAEB53362D02E91A0019E222 /* PokemonManager.swift */,
+			);
+			path = PokemonManager;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -238,6 +249,7 @@
 				FACE7B522CFC4989005D1A40 /* APIEvolutionChain.swift in Sources */,
 				FACE7B532CFC4989005D1A40 /* APIPokemon.swift in Sources */,
 				FAA050F92CFED7AF0018773D /* PokemonPreview.swift in Sources */,
+				FAEB53372D02E91A0019E222 /* PokemonManager.swift in Sources */,
 				FA90DF182CFE28D800847247 /* Coordinator.swift in Sources */,
 				FACE7B5D2CFC4A0A005D1A40 /* HomeViewModel.swift in Sources */,
 				FACE7B542CFC4989005D1A40 /* APIPokemonList.swift in Sources */,
