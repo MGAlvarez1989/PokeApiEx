@@ -13,6 +13,7 @@ A mobile app project showcasing modern development practices and features for an
  ---
 
 ## 🛠️ Next Steps
+-  ⭕️ Custom Error Handling: Optimize error showincase to user.
 -  📂 Add NSCache: Optimize memory usage by caching loaded resources.
 -  🔍 Setup Search Bar: Add search functionality to the HomeView for improved user interaction.
 -  🔗 Enhance Navigation: Implement navigation from DetailView for a complete flow.
