@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Pokemon: Codable, Identifiable, Hashable {
+struct APIPokemon: Codable, Identifiable, Hashable {
     
     let id: Int
     let name: String
@@ -27,7 +27,7 @@ struct Pokemon: Codable, Identifiable, Hashable {
         let other: Other
         
         struct Other: Codable, Hashable {
-            static func == (lhs: Pokemon.Sprites.Other, rhs: Pokemon.Sprites.Other) -> Bool {
+            static func == (lhs: APIPokemon.Sprites.Other, rhs: APIPokemon.Sprites.Other) -> Bool {
                 lhs.officialArtwork.frontDefault == rhs.officialArtwork.frontDefault
             }
             

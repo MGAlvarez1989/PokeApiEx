@@ -9,18 +9,18 @@ import SwiftUI
 
 struct PokemonPreview {
     
-    let bulbasaur = HomePokemon(
-        pokemon: Pokemon(
+    let bulbasaur = APPPokemon(
+        pokemon: APIPokemon(
             id: 1,
             name: "bulbasaur",
             height: 7,
             weight: 69,
-            species: Pokemon.Species(name: "bulbasaur", url: "https://pokeapi.co/api/v2/pokemon-species/1/"),
-            sprites: Pokemon.Sprites(other: Pokemon.Sprites.Other(officialArtwork: Pokemon.Sprites.Other.OfficialArtwork(
+            species: APIPokemon.Species(name: "bulbasaur", url: "https://pokeapi.co/api/v2/pokemon-species/1/"),
+            sprites: APIPokemon.Sprites(other: APIPokemon.Sprites.Other(officialArtwork: APIPokemon.Sprites.Other.OfficialArtwork(
                 frontDefault: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png"))),
             types: [
-                Pokemon.TypeElement(slot: 1, type: Pokemon.TypeElement.TypeSpecies(name: "grass", url: "https://pokeapi.co/api/v2/type/12/")),
-                Pokemon.TypeElement(slot: 2, type: Pokemon.TypeElement.TypeSpecies(name: "poison", url: "https://pokeapi.co/api/v2/type/4/"))
+                APIPokemon.TypeElement(slot: 1, type: APIPokemon.TypeElement.TypeSpecies(name: "grass", url: "https://pokeapi.co/api/v2/type/12/")),
+                APIPokemon.TypeElement(slot: 2, type: APIPokemon.TypeElement.TypeSpecies(name: "poison", url: "https://pokeapi.co/api/v2/type/4/"))
             ]
         ),
         uiImage: UIImage(imageLiteralResourceName: "bulbasaur")
@@ -46,49 +46,49 @@ struct PokemonPreview {
 //                                                    ), evolvesTo: [])])
 //                                                ]))
     
-    let Kangaskhan = HomePokemon(
-        pokemon: Pokemon(
+    let Kangaskhan = APPPokemon(
+        pokemon: APIPokemon(
             id: 172,
             name: "kangaskhan",
             height: 22,
             weight: 69,
-            species: Pokemon.Species(name: "kangaskhan", url: "https://pokeapi.co/api/v2/pokemon-species/115/"),
-            sprites: Pokemon.Sprites(other: Pokemon.Sprites.Other(officialArtwork: Pokemon.Sprites.Other.OfficialArtwork(
+            species: APIPokemon.Species(name: "kangaskhan", url: "https://pokeapi.co/api/v2/pokemon-species/115/"),
+            sprites: APIPokemon.Sprites(other: APIPokemon.Sprites.Other(officialArtwork: APIPokemon.Sprites.Other.OfficialArtwork(
                 frontDefault: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/115.png"))),
             types: [
-                Pokemon.TypeElement(slot: 1, type: Pokemon.TypeElement.TypeSpecies(name: "normal", url: "https://pokeapi.co/api/v2/type/1/"))
+                APIPokemon.TypeElement(slot: 1, type: APIPokemon.TypeElement.TypeSpecies(name: "normal", url: "https://pokeapi.co/api/v2/type/1/"))
             ]
         ),
         uiImage: UIImage(imageLiteralResourceName: "kangaskhan")
     )
     
-    let eevee = HomePokemon(
-        pokemon: Pokemon(
+    let eevee = APPPokemon(
+        pokemon: APIPokemon(
             id: 133,
             name: "eevee",
             height: 3,
             weight: 65,
-            species: Pokemon.Species(name: "eevee", url: "https://pokeapi.co/api/v2/pokemon-species/133/"),
-            sprites: Pokemon.Sprites(other: Pokemon.Sprites.Other(officialArtwork: Pokemon.Sprites.Other.OfficialArtwork(
+            species: APIPokemon.Species(name: "eevee", url: "https://pokeapi.co/api/v2/pokemon-species/133/"),
+            sprites: APIPokemon.Sprites(other: APIPokemon.Sprites.Other(officialArtwork: APIPokemon.Sprites.Other.OfficialArtwork(
                 frontDefault: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/133.png"))),
             types: [
-                Pokemon.TypeElement(slot: 1, type: Pokemon.TypeElement.TypeSpecies(name: "normal", url: "https://pokeapi.co/api/v2/type/1/"))
+                APIPokemon.TypeElement(slot: 1, type: APIPokemon.TypeElement.TypeSpecies(name: "normal", url: "https://pokeapi.co/api/v2/type/1/"))
             ]
         ),
         uiImage: UIImage(imageLiteralResourceName: "eevee")
     )
     
-    let espeon = HomePokemon(
-        pokemon: Pokemon(
+    let espeon = APPPokemon(
+        pokemon: APIPokemon(
             id: 196,
             name: "espeon",
             height: 3,
             weight: 65,
-            species: Pokemon.Species(name: "eevee", url: "https://pokeapi.co/api/v2/pokemon-species/196/"),
-            sprites: Pokemon.Sprites(other: Pokemon.Sprites.Other(officialArtwork: Pokemon.Sprites.Other.OfficialArtwork(
+            species: APIPokemon.Species(name: "eevee", url: "https://pokeapi.co/api/v2/pokemon-species/196/"),
+            sprites: APIPokemon.Sprites(other: APIPokemon.Sprites.Other(officialArtwork: APIPokemon.Sprites.Other.OfficialArtwork(
                 frontDefault: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/196.png"))),
             types: [
-                Pokemon.TypeElement(slot: 1, type: Pokemon.TypeElement.TypeSpecies(name: "psychic", url: "https://pokeapi.co/api/v2/type/14/"))
+                APIPokemon.TypeElement(slot: 1, type: APIPokemon.TypeElement.TypeSpecies(name: "psychic", url: "https://pokeapi.co/api/v2/type/14/"))
             ]
         ),
         uiImage: UIImage(imageLiteralResourceName: "espeon")

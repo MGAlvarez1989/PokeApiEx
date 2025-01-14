@@ -7,22 +7,12 @@
 
 import SwiftUI
 
-struct HomePokemon: Identifiable, Equatable, Hashable{
-    static func == (lhs: HomePokemon, rhs: HomePokemon) -> Bool {
-        return lhs.id == rhs.id
-    }
-    
-    let id = UUID().uuidString
-    var pokemon: Pokemon
-    var uiImage: UIImage
-}
-
 class HomeViewModel: ObservableObject {
     
-    @Published var homePokemons: [HomePokemon] = []
+    @Published var homePokemons: [APPPokemon] = []
     @Published var isLoading = false
-    var list: PokemonList?
-    var pokemon: Pokemon?
+    var list: APIPokemonList?
+    var pokemon: APIPokemon?
     var pokemonImage: UIImage?
     
     @MainActor
@@ -40,12 +30,12 @@ class HomeViewModel: ObservableObject {
             url = URL(string: next)
         }
         do {
-            list = try await APICaller.shared.callService(url, PokemonList.self)
+            list = try await APICaller.shared.callService(url, APIPokemonList.self)
             if let list {
                 for pokemon in list.results {
                     try await getInfo(stringURL: pokemon.url)
                     if let pokemon = self.pokemon, let pokemonImage = self.pokemonImage {
-                        homePokemons.append(HomePokemon(pokemon: pokemon, uiImage: pokemonImage))
+                        homePokemons.append(APPPokemon(pokemon: pokemon, uiImage: pokemonImage))
                     }
                 }
             }
@@ -58,7 +48,7 @@ class HomeViewModel: ObservableObject {
         let url = URL(string: stringURL)
         
         do {
-            let model = try await APICaller.shared.callService(url, Pokemon.self)
+            let model = try await APICaller.shared.callService(url, APIPokemon.self)
             try await getImage(stringURL: model.sprites.other.officialArtwork.frontDefault)
             pokemon = model
         } catch {
