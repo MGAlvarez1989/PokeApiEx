@@ -30,11 +30,7 @@ struct HomeView: View {
                     .onAppear {
                         if pokemon == pokemonManager.appPokemonList.last && !vm.isLoading {
                             Task {
-                                do {
-                                    try await vm.getList()
-                                } catch {
-                                    throw error
-                                }
+                                await vm.getList()
                             }
                         }
                     }
@@ -54,14 +50,16 @@ struct HomeView: View {
             .onAppear {
                 if pokemonManager.appPokemonList.isEmpty {
                     Task {
-                        do {
-                            try await vm.getList()
-                        } catch {
-                            throw error
-                        }
+                        await vm.getList()
                     }
                 }
             }
+            .alert(isPresented: $vm.showError, error: vm.error) { _ in
+                Button("OK", role: .cancel) { }
+            } message: { error in
+                Text(error.errorDescription ?? "Unknown error")
+            }
+
         }
     }
 }
@@ -69,7 +67,9 @@ struct HomeView: View {
 #Preview {
     let pokemonManager = PokemonManager()
     let coordinator = Coordinator()
-    HomeView(vm: HomeViewModel(pokemonManager: pokemonManager))
-        .environmentObject(pokemonManager)
-        .environmentObject(coordinator)
+    NavigationStack {
+        HomeView(vm: HomeViewModel(pokemonManager: pokemonManager))
+            .environmentObject(pokemonManager)
+            .environmentObject(coordinator)
+    }
 }
