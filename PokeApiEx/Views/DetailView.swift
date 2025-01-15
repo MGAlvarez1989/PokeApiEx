@@ -26,15 +26,26 @@ struct DetailView: View {
         .font(.title)
         .onAppear {
             Task {
-                do {
-                    try await vm.getDetails()
-                } catch {
-                    throw error
-                }
+                await vm.getDetails()
             }
         }
         .frame(maxWidth: .infinity)
+        .appAlert($vm.alert)
     }
+}
+
+#Preview {
+    NavigationStack {
+        let coordinator = Coordinator()
+        let pokemonManager = PokemonManager()
+        let pokemon = PokemonPreview().eevee
+        DetailView(vm: DetailViewModel(pokemonManager: pokemonManager, pokemon: pokemon))
+            .environmentObject(pokemonManager)
+            .environmentObject(coordinator)
+    }
+}
+
+extension DetailView {
     
     private var pokemonImage: some View {
         Image(uiImage: vm.pokemon.uiImage)
@@ -70,15 +81,5 @@ struct DetailView: View {
             }
             .padding()
         }
-    }
-    
-}
-
-#Preview {
-    ZStack {
-        let pokemonManager = PokemonManager()
-        let pokemon = PokemonPreview().eevee
-        DetailView(vm: DetailViewModel(pokemonManager: pokemonManager, pokemon: pokemon))
-            .environmentObject(pokemonManager)
     }
 }

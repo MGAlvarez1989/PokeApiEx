@@ -6,18 +6,12 @@
 //
 
 import SwiftUI
-enum DetailError: Error {
-    case getSpecies
-    case getEvolutionChain
-    case fetchEvolution
-}
 
-class DetailViewModel: ObservableObject {
+class DetailViewModel: ViewModel {
     
     private var pokemonManager: PokemonManager
     @Published var pokemon: APPPokemon
     @Published var detail: APPDetailPokemon?
-    @Published var isLoading: Bool = false
     
     init(pokemonManager: PokemonManager, pokemon: APPPokemon) {
         self.pokemonManager = pokemonManager
@@ -25,14 +19,18 @@ class DetailViewModel: ObservableObject {
     }
     
     @MainActor
-    func getDetails() async throws {
-        let species = try await getSpecies()
-        let evolutionChain = try await getEvolutionChain(from: species)
-        if evolutionChain.chain.evolvesTo.isEmpty {
-            detail = APPDetailPokemon(species: species, evolutionChain: evolutionChain)
-        } else {
-            let pokemonsEvolutions = try await getEvolutionsPokemons(from: evolutionChain)
-            detail = APPDetailPokemon(species: species, evolutionChain: evolutionChain, evolutions: pokemonsEvolutions)
+    func getDetails() async {
+        do {
+            let species = try await getSpecies()
+            let evolutionChain = try await getEvolutionChain(from: species)
+            if evolutionChain.chain.evolvesTo.isEmpty {
+                detail = APPDetailPokemon(species: species, evolutionChain: evolutionChain)
+            } else {
+                let pokemonsEvolutions = try await getEvolutionsPokemons(from: evolutionChain)
+                detail = APPDetailPokemon(species: species, evolutionChain: evolutionChain, evolutions: pokemonsEvolutions)
+            }
+        } catch {
+            showError(error)
         }
     }
     
@@ -42,7 +40,7 @@ class DetailViewModel: ObservableObject {
             let species = try await APICaller.shared.callService(speciesURL, APISpecies.self)
             return species
         } catch {
-            throw DetailError.getSpecies
+            throw error
         }
     }
     
@@ -52,7 +50,7 @@ class DetailViewModel: ObservableObject {
             let evolutionChain = try await APICaller.shared.callService(evolutionChainURL, APIEvolutionChain.self)
             return evolutionChain
         } catch {
-            throw DetailError.getEvolutionChain
+            throw error
         }
     }
     
@@ -98,13 +96,16 @@ class DetailViewModel: ObservableObject {
     
     private func fetchEvolution(from pokemon: String) async throws -> APPPokemon {
         let url = URL(string: "https://pokeapi.co/api/v2/pokemon/\(pokemon)")
-        
-        let pokemon = try await APICaller.shared.callService(url, APIPokemon.self)
-        
-        let imageURL = URL(string: pokemon.sprites.other.officialArtwork.frontDefault)
-        let dataImage = try await APICaller.shared.downloadImage(imageURL)
-        guard let image = UIImage(data: dataImage) else {throw DetailError.fetchEvolution}
-        
-        return APPPokemon(pokemon: pokemon, uiImage: image)
+        do {
+            let pokemon = try await APICaller.shared.callService(url, APIPokemon.self)
+            
+            let imageURL = URL(string: pokemon.sprites.other.officialArtwork.frontDefault)
+            let dataImage = try await APICaller.shared.downloadImage(imageURL)
+            guard let image = UIImage(data: dataImage) else {throw DetailError.fetchEvolutionUIImage}
+            
+            return APPPokemon(pokemon: pokemon, uiImage: image)
+        } catch {
+            throw error
+        }
     }
 }

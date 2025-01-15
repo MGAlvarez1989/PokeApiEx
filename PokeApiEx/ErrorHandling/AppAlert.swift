@@ -22,7 +22,9 @@ struct AppAlert {
 class ViewModel: ObservableObject {
     @Published var alert: AppAlert?
     
+    private let appAlertAction = AppAlert.Action(title: "Ok", role: .cancel, action: { })
+    
     func showError (_ error: Error) {
-        alert = AppAlert(title: "Error", message: error.localizedDescription, action: [AppAlert.Action(title: "Ok", role: .cancel, action: { })])
+        alert = AppAlert(title: "Error", message: error.localizedDescription, action: [appAlertAction])
     }
 }
