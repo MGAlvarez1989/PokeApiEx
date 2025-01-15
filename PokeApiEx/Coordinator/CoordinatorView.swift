@@ -19,6 +19,7 @@ struct CoordinatorView: View {
                 }
         }
         .environmentObject(coordinator)
+        .environmentObject(coordinator.pokemonManager)
     }
 }
 

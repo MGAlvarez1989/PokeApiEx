@@ -10,6 +10,7 @@ import SwiftUI
 struct DetailView: View {
     
     @EnvironmentObject private var coordinator: Coordinator
+    @EnvironmentObject var pokemonManager: PokemonManager
     @ObservedObject var vm: DetailViewModel
     
     var body: some View {
@@ -25,11 +26,26 @@ struct DetailView: View {
         .font(.title)
         .onAppear {
             Task {
-                try await vm.getDetails()
+                await vm.getDetails()
             }
         }
         .frame(maxWidth: .infinity)
+        .appAlert($vm.alert)
     }
+}
+
+#Preview {
+    NavigationStack {
+        let coordinator = Coordinator()
+        let pokemonManager = PokemonManager()
+        let pokemon = PokemonPreview().eevee
+        DetailView(vm: DetailViewModel(pokemonManager: pokemonManager, pokemon: pokemon))
+            .environmentObject(pokemonManager)
+            .environmentObject(coordinator)
+    }
+}
+
+extension DetailView {
     
     private var pokemonImage: some View {
         Image(uiImage: vm.pokemon.uiImage)
@@ -49,7 +65,7 @@ struct DetailView: View {
         }
     }
     
-    private func pokemonEvolutions (evolutions: [HomePokemon]) -> some View {
+    private func pokemonEvolutions (evolutions: [APPPokemon]) -> some View {
         VStack {
             Text("Evolutions:")
             let colums = Array(repeating: GridItem(.flexible(maximum: 300), spacing: 0),count: 3)
@@ -65,13 +81,5 @@ struct DetailView: View {
             }
             .padding()
         }
-    }
-    
-}
-
-#Preview {
-    ZStack {
-        let pokemon = PokemonPreview().bulbasaur
-        DetailView(vm: DetailViewModel(pokemon: pokemon))
     }
 }

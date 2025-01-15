@@ -9,7 +9,7 @@ import SwiftUI
 
 enum Page: Identifiable, Hashable {
     case home
-    case details(pokemon: HomePokemon)
+    case details(pokemon: APPPokemon)
     
     var id: Self {
         return self
@@ -18,6 +18,7 @@ enum Page: Identifiable, Hashable {
 
 class Coordinator: ObservableObject {
     @Published var path = NavigationPath()
+    @Published var pokemonManager = PokemonManager()
     
     func push(_ page: Page) {
         path.append(page)
@@ -35,9 +36,9 @@ class Coordinator: ObservableObject {
     func build(page: Page) -> some View {
         switch page {
         case .home:
-            HomeView()
+            HomeView(vm: HomeViewModel(pokemonManager: pokemonManager))
         case .details(pokemon: let pokemon):
-            DetailView(vm: DetailViewModel(pokemon: pokemon))
+            DetailView(vm: DetailViewModel(pokemonManager: pokemonManager, pokemon: pokemon))
         }
     }
 }

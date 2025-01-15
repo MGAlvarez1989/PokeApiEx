@@ -10,15 +10,16 @@ import SwiftUI
 struct HomeView: View {
     
     @EnvironmentObject private var coordinator: Coordinator
-    @StateObject var vm = HomeViewModel()
+    @EnvironmentObject var pokemonManager: PokemonManager
+    @ObservedObject var vm: HomeViewModel
     
     
     let colums = Array(repeating: GridItem(.flexible(minimum: 300), spacing: 0),count: 3)
     
     var body: some View {
         ScrollView {
-            LazyVGrid(columns: colums, content: {
-                ForEach(vm.homePokemons) { pokemon in
+            LazyVGrid(columns: colums) {
+                ForEach(pokemonManager.appPokemonList) { pokemon in
                     VStack {
                         Image(uiImage: pokemon.uiImage)
                             .resizable()
@@ -27,14 +28,14 @@ struct HomeView: View {
                             .font(.largeTitle)
                     }
                     .onAppear {
-                        if pokemon == vm.homePokemons.last && !vm.isLoading {
+                        if pokemon == pokemonManager.appPokemonList.last && !vm.isLoading {
                             Task {
-                                try await vm.getList()
+                                await vm.getList()
                             }
                         }
                     }
                     .onTapGesture {
-                        print(pokemon.pokemon.name)
+                        pokemonManager.pokemonSelected = pokemon
                         coordinator.push(.details(pokemon: pokemon))
                     }
                 }
@@ -44,17 +45,26 @@ struct HomeView: View {
                         .frame(minWidth: 300, minHeight: 300)
                         .padding()
                 }
-            })
+            }
             .padding()
             .onAppear {
-                Task {
-                    try await vm.getList()
+                if pokemonManager.appPokemonList.isEmpty {
+                    Task {
+                        await vm.getList()
+                    }
                 }
             }
+            .appAlert($vm.alert)
         }
     }
 }
 
 #Preview {
-    HomeView()
+    let pokemonManager = PokemonManager()
+    let coordinator = Coordinator()
+    NavigationStack {
+        HomeView(vm: HomeViewModel(pokemonManager: pokemonManager))
+            .environmentObject(pokemonManager)
+            .environmentObject(coordinator)
+    }
 }
