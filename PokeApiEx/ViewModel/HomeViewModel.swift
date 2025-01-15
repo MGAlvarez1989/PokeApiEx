@@ -7,27 +7,11 @@
 
 import SwiftUI
 
-
-enum HomeError: Error {
-    case noList
-    case unknown(String)
-}
-
-extension HomeError: LocalizedError {
-    var errorDescription: String? {
-        switch self {
-        case .noList: return "No list found"
-        case .unknown(let message): return message
-        }
-    }
-}
-
-class HomeViewModel: ObservableObject {
+class HomeViewModel: ViewModel {
     
     private var pokemonManager: PokemonManager
     
     @Published var showError = false
-    @Published var error: HomeError?
     @Published var isLoading = false
     var pokemon: APIPokemon?
     var pokemonImage: UIImage?
@@ -54,17 +38,9 @@ class HomeViewModel: ObservableObject {
                 }
             }
         } catch {
-            handleError(error)
+            print("GetListError")
+            showError(error)
         }
-    }
-    
-    private func handleError(_ error: any Error) {
-        if let homeError = error as? HomeError {
-            self.error = homeError
-        } else {
-            self.error = .unknown(error.localizedDescription)
-        }
-        self.showError = true
     }
     
     private func getInfo(stringURL: String) async {
@@ -74,7 +50,8 @@ class HomeViewModel: ObservableObject {
             await getImage(stringURL: model.sprites.other.officialArtwork.frontDefault)
             pokemon = model
         } catch {
-            handleError(error)
+            print("GetInfoError")
+            showError(error)
         }
     }
     
@@ -86,7 +63,8 @@ class HomeViewModel: ObservableObject {
                 pokemonImage = image
             }
         } catch {
-            handleError(error)
+            print("GetImageError")
+            showError(error)
         }
     }
     
@@ -94,7 +72,7 @@ class HomeViewModel: ObservableObject {
         if pokemonManager.pokemonList == nil {
             return URL(string: "https://pokeapi.co/api/v2/pokemon")
         } else {
-            guard let next = pokemonManager.pokemonList?.next else { throw URLError(.badURL) }
+            guard let next = pokemonManager.pokemonList?.next else { throw APICallerError.invalidURL }
             return URL(string: next)
         }
     }

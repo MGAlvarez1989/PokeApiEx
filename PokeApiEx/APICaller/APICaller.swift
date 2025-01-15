@@ -5,25 +5,7 @@
 //  Created by Matias Alvarez on 1/12/24.
 //
 
-import Foundation
-
-enum APICallerError: Error {
-    case invalidURL
-    case downloadImage
-    case callServiceError
-}
-extension APICallerError: LocalizedError {
-    var errorDescription: String? {
-        switch self {
-        case .invalidURL:
-            return "URL inválida"
-        case .downloadImage:
-            return "Error al descargar imagen"
-        case .callServiceError:
-            return "Error al llamar el servicio"
-        }
-    }
-}
+import SwiftUI
 
 class APICaller {
     
@@ -36,7 +18,7 @@ class APICaller {
             guard let url else {throw APICallerError.invalidURL}
             let (data, response) = try await URLSession.shared.data(from: url)
             guard let httpResponse = response as? HTTPURLResponse else {
-                throw URLError(.badServerResponse)
+                throw APICallerError.badResponse
             }
 //            print(try JSONSerialization.jsonObject(with: data))
             let decodedData = try JSONDecoder().decode(T.self, from: data)
@@ -52,7 +34,7 @@ class APICaller {
         do {
             let (data, response) = try await URLSession.shared.data(from: url)
             guard let httpResponse = response as? HTTPURLResponse else {
-                throw URLError(.badServerResponse)
+                throw APICallerError.badResponse
             }
             return data
         } catch {

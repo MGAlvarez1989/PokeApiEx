@@ -54,12 +54,7 @@ struct HomeView: View {
                     }
                 }
             }
-            .alert(isPresented: $vm.showError, error: vm.error) { _ in
-                Button("OK", role: .cancel) { }
-            } message: { error in
-                Text(error.errorDescription ?? "Unknown error")
-            }
-
+            .appAlert($vm.alert)
         }
     }
 }

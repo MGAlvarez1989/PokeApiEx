@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FA6544A32D37D6B10029E668 /* Binding.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6544A22D37D6B10029E668 /* Binding.swift */; };
+		FA6544A62D37D9F80029E668 /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6544A52D37D9F80029E668 /* View.swift */; };
+		FA6544AB2D383ABF0029E668 /* AppAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6544AA2D383ABF0029E668 /* AppAlert.swift */; };
+		FA6544AD2D383B610029E668 /* HomeError.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6544AC2D383B610029E668 /* HomeError.swift */; };
+		FA6544AF2D383B7F0029E668 /* APICallerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6544AE2D383B7F0029E668 /* APICallerError.swift */; };
 		FA90DF182CFE28D800847247 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA90DF172CFE28D800847247 /* Coordinator.swift */; };
 		FA90DF1A2CFE2A7600847247 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA90DF192CFE2A7600847247 /* DetailView.swift */; };
 		FA90DF1C2CFE2A9C00847247 /* CoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA90DF1B2CFE2A9C00847247 /* CoordinatorView.swift */; };
@@ -28,6 +33,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		FA6544A22D37D6B10029E668 /* Binding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Binding.swift; sourceTree = "<group>"; };
+		FA6544A52D37D9F80029E668 /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
+		FA6544AA2D383ABF0029E668 /* AppAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAlert.swift; sourceTree = "<group>"; };
+		FA6544AC2D383B610029E668 /* HomeError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeError.swift; sourceTree = "<group>"; };
+		FA6544AE2D383B7F0029E668 /* APICallerError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APICallerError.swift; sourceTree = "<group>"; };
 		FA90DF172CFE28D800847247 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		FA90DF192CFE2A7600847247 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		FA90DF1B2CFE2A9C00847247 /* CoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorView.swift; sourceTree = "<group>"; };
@@ -69,6 +79,25 @@
 				FACE7B472CFC4989005D1A40 /* APIEvolutionChain.swift */,
 			);
 			path = APIModels;
+			sourceTree = "<group>";
+		};
+		FA6544A42D37D74C0029E668 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				FA6544A22D37D6B10029E668 /* Binding.swift */,
+				FA6544A52D37D9F80029E668 /* View.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		FA6544A72D383A690029E668 /* ErrorHandling */ = {
+			isa = PBXGroup;
+			children = (
+				FA6544AA2D383ABF0029E668 /* AppAlert.swift */,
+				FA6544AE2D383B7F0029E668 /* APICallerError.swift */,
+				FA6544AC2D383B610029E668 /* HomeError.swift */,
+			);
+			path = ErrorHandling;
 			sourceTree = "<group>";
 		};
 		FAA050FA2CFEDF670018773D /* Coordinator */ = {
@@ -117,6 +146,8 @@
 		FACE7B512CFC4989005D1A40 /* PokeApiEx */ = {
 			isa = PBXGroup;
 			children = (
+				FA6544A72D383A690029E668 /* ErrorHandling */,
+				FA6544A42D37D74C0029E668 /* Extensions */,
 				FAA050FA2CFEDF670018773D /* Coordinator */,
 				FACE7B5E2CFC4A5C005D1A40 /* APICaller */,
 				FAEB53352D02E8F80019E222 /* PokemonManager */,
@@ -257,10 +288,15 @@
 				FAEB53322D02E8040019E222 /* APPPokemon.swift in Sources */,
 				FAEB53342D02E8310019E222 /* APPDetailPokemon.swift in Sources */,
 				FACE7B552CFC4989005D1A40 /* APISpecies.swift in Sources */,
+				FA6544A32D37D6B10029E668 /* Binding.swift in Sources */,
 				FA90DF1C2CFE2A9C00847247 /* CoordinatorView.swift in Sources */,
+				FA6544AD2D383B610029E668 /* HomeError.swift in Sources */,
 				FAA050FC2CFEDFE10018773D /* DetailViewModel.swift in Sources */,
+				FA6544AF2D383B7F0029E668 /* APICallerError.swift in Sources */,
+				FA6544A62D37D9F80029E668 /* View.swift in Sources */,
 				FACE7B562CFC4989005D1A40 /* HomeView.swift in Sources */,
 				FACE7B572CFC4989005D1A40 /* PokeApiExApp.swift in Sources */,
+				FA6544AB2D383ABF0029E668 /* AppAlert.swift in Sources */,
 				FACE7B602CFC4A96005D1A40 /* APICaller.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
